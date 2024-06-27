@@ -9,6 +9,7 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class ConfigTest {
     protected JsonNode data;
@@ -19,7 +20,7 @@ public class ConfigTest {
         data= workingJson.getResourcesFromJson();
         WebDriverManager.getDriver().manage().window().maximize();
         WebDriverManager.getDriver().get("https://www.trivago.com/");
-//        WebDriverManager.getDriver().manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        WebDriverManager.getDriver().manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
     }
 
 

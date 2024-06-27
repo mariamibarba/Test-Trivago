@@ -8,6 +8,7 @@ public class RegistrationPage {
     public By continueButton= By.xpath("//*[text()='Continue']");
     public By passwordInput = By.id("password");
     public By createAccount = By.xpath("//*[@data-testid =\"register-submit-button\"]");
+    public By loginButton = By.xpath("//*[@data-testid =\"login-submit\"]");
 
 
     public void enterEmail(String email) {
@@ -21,5 +22,8 @@ public class RegistrationPage {
     }
     public void clickCreateAccount() {
         WebDriverManager.getDriver().findElement(createAccount).click();
+    }
+    public void clickLogin() {
+        WebDriverManager.getDriver().findElement(loginButton).click();
     }
 }
