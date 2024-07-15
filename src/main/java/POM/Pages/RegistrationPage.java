@@ -2,6 +2,7 @@ package POM.Pages;
 
 import POM.Utils.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 public class RegistrationPage {
     public By emilInput = By.id("email");
@@ -9,6 +10,10 @@ public class RegistrationPage {
     public By passwordInput = By.id("password");
     public By createAccount = By.xpath("//*[@data-testid =\"register-submit-button\"]");
     public By loginButton = By.xpath("//*[@data-testid =\"login-submit\"]");
+    public By pageTitleMail = By.xpath("//h1[text()='Unlock more savings as a member']");
+    public By pageTitlePassword = By.xpath("//h1[text()='Create a password for your new account']");
+    public By pageTitleEnterPassword = By.xpath("//h1[text()='Enter your password']");
+
 
 
     public void enterEmail(String email) {
@@ -25,5 +30,15 @@ public class RegistrationPage {
     }
     public void clickLogin() {
         WebDriverManager.getDriver().findElement(loginButton).click();
+    }
+    public String checkPageTitle() {
+        return WebDriverManager.getDriver().findElement(pageTitleMail).getText();
+
+    }
+    public String checkPageTitlePassword() {
+        return WebDriverManager.getDriver().findElement(pageTitlePassword).getText();
+    }
+    public String checkPageTitleEnterPassword() {
+        return WebDriverManager.getDriver().findElement(pageTitleEnterPassword).getText();
     }
 }
