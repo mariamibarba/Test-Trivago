@@ -2,6 +2,7 @@ package POM.Pages;
 
 import POM.Utils.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
@@ -15,19 +16,21 @@ public class HotelsPage {
     public By applyFilterButton = By.xpath("//div[@data-testid='filters-popover-apply-button']");
     public By allhotelsLists = By.xpath("//ol[@data-testid='accommodation-list']");
     public By addToWishlistButton = By.xpath(".//button[@data-testid='accommodation-card-favorite-list-button']");
+    public By priceFilterButton = By.xpath("//span[contains(@class, 'RefinementRowElement_buttonConfigText__5tSnR') and contains(text(), '$2 - $600 +')]");
+
+
+    public By minPriceInput = By.xpath("//input[@data-testid='price-filter-value-min']");
+    public By maxPriceInput = By.xpath("//input[@data-testid='price-filter-value-max']");
+    public By applyPriceFilterButton = By.xpath("//button[@data-testid='filters-popover-apply-button']");
+
 
     public List<WebElement> hotelsLists() {
         return WebDriverManager.getDriver().findElements(allhotelsLists);
     }
 
     public void clickAddToWishlistForFirstHotel() {
-        // Get the first hotel element
         WebElement firstHotel = hotelsLists().get(0);
-
-        // Find the "Add to wishlist" button within the first hotel element
         WebElement addToWishlistBtn = firstHotel.findElement(addToWishlistButton);
-
-        // Click the "Add to wishlist" button
         addToWishlistBtn.click();
     }
 
@@ -35,6 +38,7 @@ public class HotelsPage {
     public void clickSortByLocation() {
         WebDriverManager.getDriver().findElement(sortByLocation).click();
     }
+
     public void moveSliderToMiles(double targetMiles) {
         WebElement slider = WebDriverManager.getDriver().findElement(sliderHandle);
         WebElement track = WebDriverManager.getDriver().findElement(sliderTrack);
@@ -58,11 +62,34 @@ public class HotelsPage {
                 .build()
                 .perform();
     }
+
     public void clickApplyFilterButton() {
         WebDriverManager.getDriver().findElement(sortByLocation).click();
     }
 
+    public void clickPriceFilterButton() {
+        WebDriverManager.getDriver().findElement(priceFilterButton).click();
+    }
 
+
+    public void setMinPrice(int minPrice) {
+        WebElement minPriceElement = WebDriverManager.getDriver().findElement(minPriceInput);
+        minPriceElement.sendKeys(Keys.BACK_SPACE);
+        minPriceElement.clear();
+        minPriceElement.sendKeys(String.valueOf(minPrice));
+
+    }
+
+    public void setMaxPrice(int maxPrice) {
+        WebElement maxPriceElement = WebDriverManager.getDriver().findElement(maxPriceInput);
+        maxPriceElement.sendKeys(Keys.BACK_SPACE);
+        maxPriceElement.clear();
+        maxPriceElement.sendKeys(String.valueOf(maxPrice));
+    }
+
+    public void applyPriceFilter() {
+        WebDriverManager.getDriver().findElement(applyPriceFilterButton).click();
+    }
 
 
 }

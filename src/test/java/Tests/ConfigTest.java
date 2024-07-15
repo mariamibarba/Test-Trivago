@@ -13,11 +13,12 @@ import java.util.concurrent.TimeUnit;
 
 public class ConfigTest {
     protected JsonNode data;
+
     @BeforeClass(groups = {"positive", "negative"})
     @Story("Opening url for all tests")
     @Description("Maximize browsers windows")
     public void setup() throws IOException {
-        data= workingJson.getResourcesFromJson();
+        data = workingJson.getResourcesFromJson();
         WebDriverManager.getDriver().manage().window().maximize();
         WebDriverManager.getDriver().get("https://www.trivago.com/");
         WebDriverManager.getDriver().manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
