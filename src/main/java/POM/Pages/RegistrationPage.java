@@ -13,6 +13,9 @@ public class RegistrationPage {
     public By pageTitleMail = By.xpath("//h1[text()='Unlock more savings as a member']");
     public By pageTitlePassword = By.xpath("//h1[text()='Create a password for your new account']");
     public By pageTitleEnterPassword = By.xpath("//h1[text()='Enter your password']");
+    public By errormessagetext = By.xpath("//*[@data-testid =\"form-field-error-notification\"]");
+    public By allertText = By.className("Alert_message__s9VF2");
+
 
 
     public void enterEmail(String email) {
@@ -46,5 +49,12 @@ public class RegistrationPage {
 
     public String checkPageTitleEnterPassword() {
         return WebDriverManager.getDriver().findElement(pageTitleEnterPassword).getText();
+    }
+    public String checkErrormessagetext() {
+        return WebDriverManager.getDriver().findElement(errormessagetext).getText();
+    }
+    public String  checkckAllert() {
+       return WebDriverManager.getDriver().findElement(allertText).getText();
+
     }
 }

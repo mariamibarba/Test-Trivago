@@ -26,8 +26,9 @@
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>5.8.0</version>
+            <version>5.9.1</version>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.testng/testng -->
         <dependency>
             <groupId>org.testng</groupId>
@@ -35,6 +36,15 @@
             <version>7.10.2</version>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-htmlunit-driver -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-htmlunit-driver</artifactId>
+            <version>2.52.0</version>
+        </dependency>
+
+
+
 
 
 
@@ -48,6 +58,14 @@
             <artifactId>allure-testng</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.10.2</version>
+            <scope>test</scope>
+        </dependency>
+
 
 
 
@@ -72,7 +90,7 @@
                 <configuration>
                     <suiteXmlFiles>
                         <suiteXmlFile>testNG.xml</suiteXmlFile>
-                        <suiteXmlFile>negativeNG.xml</suiteXmlFile>
+<!--                        <suiteXmlFile>negativeNG.xml</suiteXmlFile>-->
 
                     </suiteXmlFiles>
                 </configuration>

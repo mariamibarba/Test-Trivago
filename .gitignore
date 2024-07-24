@@ -9,3 +9,5 @@ allure-results/
 *.ipr
 *.iml
 *.iws
+screenshots/
+.DS_Store

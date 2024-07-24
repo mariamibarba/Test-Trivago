@@ -11,14 +11,14 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class Tests extends ConfigTest {
+public class Tests extends BaseTest {
     HomePage homePage = new HomePage();
     RegistrationPage registrationPage = new RegistrationPage();
     MyProfilePage myProfilePage = new MyProfilePage();
     HotelsPage hotelsPage = new HotelsPage();
 
 
-    @Test
+    @Test(priority = 1,groups = "Positive")
     public void registrationRandomTest() throws InterruptedException {
         Waits.waitUnits(homePage.loginButton, WebDriverManager.getDriver(), 10);
         homePage.clickSignUpButton();
@@ -36,7 +36,7 @@ public class Tests extends ConfigTest {
         myProfilePage.clickLogOutButton();
     }
 
-    @Test
+    @Test(priority = 2,groups = "Positive")
     public void registrationTest2() throws InterruptedException {
         Waits.waitUnits(homePage.loginButton, WebDriverManager.getDriver(), 10);
         homePage.clickSignUpButton();
@@ -53,7 +53,7 @@ public class Tests extends ConfigTest {
 
     }
 
-    @Test
+    @Test(priority = 3,groups = "Positive")
     public void changeProfileData() {
         Waits.waitUnits(homePage.loginButton, WebDriverManager.getDriver(), 10);
         homePage.clickSignUpButton();
@@ -79,14 +79,14 @@ public class Tests extends ConfigTest {
 
     }
 
-    @Test
+    @Test(priority = 4,groups = "Positive")
     public void searchCity() {
         Waits.waitUnits(homePage.loginButton, WebDriverManager.getDriver(), 10);
         homePage.clicklocationfilld("Batumi");
         homePage.clickSearchButton();
     }
 
-    @Test
+    @Test(priority = 5,groups = "Positive")
     public void searchHotel() {
         homePage.clicklocationfilld("Batumi");
         homePage.clickchooseDate();
@@ -96,12 +96,13 @@ public class Tests extends ConfigTest {
         homePage.clickSearchButton();
     }
 
-    @Test
+    @Test(priority = 6,groups = "Positive")
     public void filterHotels() {
         homePage.clicklocationfilld("Batumi");
         homePage.clickchooseDate();
         homePage.testSelectDates();
         homePage.setQuantityOfAdults(4);
+        Waits.waitUnits(homePage.quantitiyOfAdults, WebDriverManager.getDriver(), 10);
         homePage.clickapplyButton();
         homePage.clickSearchButton();
         Waits.waitUnits(hotelsPage.priceFilterButton, WebDriverManager.getDriver(), 10);
@@ -109,12 +110,40 @@ public class Tests extends ConfigTest {
         Waits.waitUnits(hotelsPage.minPriceInput, WebDriverManager.getDriver(), 10);
         hotelsPage.setMinPrice(20);
         hotelsPage.setMaxPrice(600);
+        Waits.waitUnits(hotelsPage.applyPriceFilterButton, WebDriverManager.getDriver(), 10);
         hotelsPage.applyPriceFilter();
 
 //        Add hotel to wishlist
         hotelsPage.clickAddToWishlistForFirstHotel();
 
     }
+
+    @Test(priority = 8,groups = "Negative")
+    public void registrationWIthIncorrectData() {
+        Waits.waitUnits(homePage.loginButton, WebDriverManager.getDriver(), 10);
+        homePage.clickSignUpButton();
+        registrationPage.enterEmail("test");
+        registrationPage.clickContinue();
+        Assert.assertEquals(registrationPage.checkErrormessagetext(), "Enter your complete email address. For example: name@example.com");
+
+
+    }
+    @Test(priority = 7, groups = "Negative")
+    public void registrationWithWeakPassword(){
+        Waits.waitUnits(homePage.loginButton, WebDriverManager.getDriver(), 10);
+        homePage.clickSignUpButton();
+        registrationPage.enterEmail("mariami@gmail.com");
+        registrationPage.clickContinue();
+        Waits.waitUnits(registrationPage.passwordInput, WebDriverManager.getDriver(), 10);
+        registrationPage.enterPassword("12345678");
+        registrationPage.clickLogin();
+        Assert.assertEquals(registrationPage.checkckAllert(),
+                "The email/password combination you entered is wrong. Please double-check both or click “Forgot your password?”.");
+
+
+    }
+
+
 
 
 }
