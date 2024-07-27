@@ -8,6 +8,8 @@ import POM.Utils.GenerateRandom;
 import POM.Utils.Waits;
 import POM.Utils.WebDriverManager;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -17,8 +19,9 @@ public class Tests extends BaseTest {
     MyProfilePage myProfilePage = new MyProfilePage();
     HotelsPage hotelsPage = new HotelsPage();
 
-
-    @Test(priority = 1,groups = "Positive")
+    @Test(priority = 1, groups = "Positive")
+    @Story("User Registration")
+    @Feature("Create an account with a random email, check it, and log out")
     public void registrationRandomTest() throws InterruptedException {
         Waits.waitUnits(homePage.loginButton, WebDriverManager.getDriver(), 10);
         homePage.clickSignUpButton();
@@ -36,7 +39,9 @@ public class Tests extends BaseTest {
         myProfilePage.clickLogOutButton();
     }
 
-    @Test(priority = 2,groups = "Positive")
+    @Test(priority = 2, groups = "Positive")
+    @Story("User Registration")
+    @Feature("Create an account with a specific email and password, check it, and log out")
     public void registrationTest2() throws InterruptedException {
         Waits.waitUnits(homePage.loginButton, WebDriverManager.getDriver(), 10);
         homePage.clickSignUpButton();
@@ -50,10 +55,11 @@ public class Tests extends BaseTest {
         Waits.waitUnits(homePage.loginProfilleButton, WebDriverManager.getDriver(), 10);
         homePage.clickLoginProfilleButton();
         myProfilePage.clickLogOutButton();
-
     }
 
-    @Test(priority = 3,groups = "Positive")
+    @Test(priority = 3, groups = "Positive")
+    @Story("Profile Management")
+    @Feature("Change profile data")
     public void changeProfileData() {
         Waits.waitUnits(homePage.loginButton, WebDriverManager.getDriver(), 10);
         homePage.clickSignUpButton();
@@ -75,18 +81,20 @@ public class Tests extends BaseTest {
         Waits.waitUnits(homePage.loginProfilleButton, WebDriverManager.getDriver(), 10);
         homePage.clickLoginProfilleButton();
         myProfilePage.clickLogOutButton();
-
-
     }
 
-    @Test(priority = 4,groups = "Positive")
+    @Test(priority = 4, groups = "Positive")
+    @Story("Search Functionality")
+    @Feature("Search for a city")
     public void searchCity() {
         Waits.waitUnits(homePage.loginButton, WebDriverManager.getDriver(), 10);
         homePage.clicklocationfilld("Batumi");
         homePage.clickSearchButton();
     }
 
-    @Test(priority = 5,groups = "Positive")
+    @Test(priority = 5, groups = "Positive")
+    @Story("Search Functionality")
+    @Feature("Search for a hotel with specific criteria")
     public void searchHotel() {
         homePage.clicklocationfilld("Batumi");
         homePage.clickchooseDate();
@@ -96,7 +104,9 @@ public class Tests extends BaseTest {
         homePage.clickSearchButton();
     }
 
-    @Test(priority = 6,groups = "Positive")
+    @Test(priority = 6, groups = "Positive")
+    @Story("Search Functionality")
+    @Feature("Filter hotels based on price and add to wishlist")
     public void filterHotels() {
         homePage.clicklocationfilld("Batumi");
         homePage.clickchooseDate();
@@ -112,24 +122,13 @@ public class Tests extends BaseTest {
         hotelsPage.setMaxPrice(600);
         Waits.waitUnits(hotelsPage.applyPriceFilterButton, WebDriverManager.getDriver(), 10);
         hotelsPage.applyPriceFilter();
-
-//        Add hotel to wishlist
         hotelsPage.clickAddToWishlistForFirstHotel();
-
     }
 
-    @Test(priority = 8,groups = "Negative")
-    public void registrationWIthIncorrectData() {
-        Waits.waitUnits(homePage.loginButton, WebDriverManager.getDriver(), 10);
-        homePage.clickSignUpButton();
-        registrationPage.enterEmail("test");
-        registrationPage.clickContinue();
-        Assert.assertEquals(registrationPage.checkErrormessagetext(), "Enter your complete email address. For example: name@example.com");
-
-
-    }
     @Test(priority = 7, groups = "Negative")
-    public void registrationWithWeakPassword(){
+    @Story("User Registration")
+    @Feature("Attempt to create an account with a weak password and check error")
+    public void registrationWithWeakPassword() {
         Waits.waitUnits(homePage.loginButton, WebDriverManager.getDriver(), 10);
         homePage.clickSignUpButton();
         registrationPage.enterEmail("mariami@gmail.com");
@@ -139,11 +138,16 @@ public class Tests extends BaseTest {
         registrationPage.clickLogin();
         Assert.assertEquals(registrationPage.checkckAllert(),
                 "The email/password combination you entered is wrong. Please double-check both or click “Forgot your password?”.");
-
-
     }
 
-
-
-
+    @Test(priority = 8, groups = "Negative")
+    @Story("User Registration")
+    @Feature("Attempt to create an account with an incorrect email and check error")
+    public void registrationWithIncorrectData() {
+        Waits.waitUnits(homePage.loginButton, WebDriverManager.getDriver(), 10);
+        homePage.clickSignUpButton();
+        registrationPage.enterEmail("test");
+        registrationPage.clickContinue();
+        Assert.assertEquals(registrationPage.checkErrormessagetext(), "Enter your complete email address. For example: name@example.com");
+    }
 }
